@@ -2,12 +2,26 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-bg: #FFFFFF;
+  --color-accent: #FF0000;
+}
+
 h1 {
   margin-bottom: 10px;
   font-size: 60px;
 }
 
-section:not(:last-child) {
+nav, .flexgrid {
+  display:inline-block;
+}
+
+.flexgrid {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+section:first-of-type {
   margin-bottom: 20px;
 }
 
@@ -17,30 +31,81 @@ section:not(:last-child) {
   color: #FF0000;
 }
 
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+main {
+  margin: 0 auto;
+}
+
+.btn {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.btn:hover {
+  background-color: #BF0000;
+  border-color: #BF0000;
+}
+
+.btn-round {
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 25px;
+}
+
+/* Results styles */
+.results-box {
+  overflow: hidden;
+  height: 115px;
+  position: relative;
+}
+
+a.background {
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+a.background div.img {
+  background-size: cover;
+  height: 100%;
+}
+
+a.background div.img div.text {
+  visibility: hidden;
+  color: var(--color-bg);
+}
+
+a.background:hover div.img:hover div.text {
+  visibility: visible;
+}
+
+/* Search form syles */
 .search-form input {
-  border-left: 1px solid #FF0000;
-  border-top: 1px solid #FF0000;
-  border-bottom: 1px solid #FF0000;
+  border-left: 1px solid var(--color-accent);
+  border-top: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
   border-right: none;
-  color: #FF0000;
   padding: 5px;
 }
 
 .search-form .input {
+  color: var(--color-accent);
   border-radius: 2px 0 0 2px;
 }
 
 .search-form .btn {
-  border-right: 1px solid #FF0000;
-  background-color: #FF0000;
-  color: #FFFFFF;
+  border-right: 1px solid;
   max-width: 50px;
   border-radius: 0 2px 2px 0;
-}
-
-.search-form .btn:hover {
-  background-color: #BF0000;
-  border-color: #BF0000;
 }
 
 .flexbox {
@@ -70,8 +135,12 @@ section:not(:last-child) {
 * Desktop defaults
 **************/
 @media only screen and (min-width: 640px) {
+  main {
+    width: 85%;
+  }
+  
   .search-form {
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
   }
   
@@ -81,7 +150,10 @@ section:not(:last-child) {
   }
   
   .btn {
-    min-width: 100px;
     cursor: pointer;
+  }
+  
+  .btn.submit {
+    min-width: 100px;
   }
 }
