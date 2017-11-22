@@ -14,7 +14,6 @@ section:not(:last-child) {
 .title {
   font-family: 'VT323', monospace;
   text-align: center;
-  color: #FF0000;
 }
 
 .search-form input {
@@ -22,12 +21,15 @@ section:not(:last-child) {
   border-top: 1px solid #FF0000;
   border-bottom: 1px solid #FF0000;
   border-right: none;
-  color: #FF0000;
   padding: 5px;
 }
 
 .search-form .input {
   border-radius: 2px 0 0 2px;
+}
+
+.search-form .input:focus {
+  outline: none;
 }
 
 .search-form .btn {
