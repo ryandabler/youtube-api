@@ -43,12 +43,11 @@ function processObject(element) {
 }
 
 function renderAPIResultsToDOM(responseJSON, resultsObj) {
-  console.log(responseJSON);
   const videoItems = responseJSON.items;
-  console.log("results", resultsObj);
+  
   resultsObj.prevPageToken = responseJSON.prevPageToken;
   resultsObj.nextPageToken = responseJSON.nextPageToken;
-  console.log("results", resultsObj);
+  
   let processedItems = videoItems.map(elem => processObject(elem));
   
   // Display nav element if there are pages to navigate
@@ -87,7 +86,7 @@ function queryAPI(resultsObj, callback, prevPage = null, nextPage = null) {
   if (nextPage !== null) {
     query.pageToken = nextPage;
   }
-  console.log(query);
+  
   $.getJSON(YOUTUBE_ENDPOINT, query, callback);
 }
 
