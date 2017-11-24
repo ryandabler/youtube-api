@@ -18,7 +18,7 @@ h1 {
   vertical-align: middle;
 }
 
-section:first-of-type {
+main > section:first-of-type {
   margin-bottom: 20px;
 }
 
@@ -58,6 +58,10 @@ main {
 }
 
 /* Results styles */
+.results-container {
+  text-align: center;
+  margin: auto;
+}
 .results-box {
   overflow: hidden;
   height: 115px;
@@ -168,6 +172,9 @@ nav {
   
   nav, .flexgrid {
     display:inline-block;
+  }
+  
+  .flexgrid {
     margin-bottom: 0;
   }
   
