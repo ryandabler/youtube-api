@@ -1,17 +1,21 @@
 const YOUTUBE_ENDPOINT = "https://www.googleapis.com/youtube/v3/search";
 const YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v=";
 
-function divHoverEffectIn() {
-  let $this = $(this);
-  let currentBgImg = $this.css("background-image");
-  $this.css("background-image", "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))," + currentBgImg);
+function divHoverEffectIn(event) {
+  let divImg  = $(event.currentTarget).find("div.img");
+  let $divImg = $(divImg[0]);
+  
+  let currentBgImg = $divImg.css("background-image");
+  $divImg.css("background-image", "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))," + currentBgImg);
 }
 
-function divHoverEffectOut() {
-  let $this = $(this);
-  let currentBgImg = $this.css("background-image");
+function divHoverEffectOut(event) {
+  let divImg  = $(event.currentTarget).find("div.img");
+  let $divImg = $(divImg[0]);
+  
+  let currentBgImg = $divImg.css("background-image");
   let bgImg = currentBgImg.split(")), ")[1];
-  $this.css("background-image", bgImg);
+  $divImg.css("background-image", bgImg);
 }
 
 function processObject(element) {
@@ -28,13 +32,15 @@ function processObject(element) {
   
   div_sub.addClass("img");
   div_sub.css("background-image", `url(${thumbnailURL})`);
-  div_sub.hover(divHoverEffectIn, divHoverEffectOut);
   
   div_txt.addClass("text");
   div_txt.text(title);
   
   a.addClass("background");
   a.attr("href", YOUTUBE_VIDEO_URL + videoId);
+  a.hover(divHoverEffectIn, divHoverEffectOut);
+  a.focusin(divHoverEffectIn);
+  a.focusout(divHoverEffectOut);
   
   div_sub.append(div_txt);
   a.append(div_sub);

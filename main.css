@@ -45,7 +45,7 @@ main > section:first-of-type {
   color: var(--color-bg);
 }
 
-.btn:hover {
+.btn:hover, .btn:focus {
   background-color: var(--color-accent-dark);
   border-color: var(--color-accent-dark);
 }
@@ -87,11 +87,11 @@ a.background div.img div.text {
   color: var(--color-bg);
 }
 
-a.background:hover div.img:hover {
+a.background:hover div.img:hover, a.background:focus div.img:focus {
   border-color: var(--color-accent-dark);
 }
 
-a.background:hover div.img:hover div.text {
+a.background:hover div.img:hover div.text, a.background:focus div.img div.text {
   visibility: visible;
 }
 
