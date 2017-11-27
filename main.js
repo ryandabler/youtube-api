@@ -110,7 +110,7 @@ function addEventListeners(resultsObj) {
 
 function buildApp() {
   const results = {
-    searchPhrase : null
+    searchPhrase: null
   };
   
   addEventListeners(results);
