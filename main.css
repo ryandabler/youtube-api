@@ -5,12 +5,17 @@
 :root {
   --color-bg: #FFFFFF;
   --color-accent: #FF0000;
+  --color-accent-dark: #BF0000
 }
 
 h1 {
   margin-bottom: 10px;
   font-size: 60px;
   color: var(--color-accent);
+}
+
+main {
+  margin: 0 auto;
 }
 
 .flexgrid {
@@ -35,18 +40,14 @@ main > section:first-of-type {
   visibility: hidden;
 }
 
-main {
-  margin: 0 auto;
-}
-
 .btn {
   background-color: var(--color-accent);
   color: var(--color-bg);
 }
 
 .btn:hover {
-  background-color: #BF0000;
-  border-color: #BF0000;
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
 }
 
 .btn-round {
@@ -62,6 +63,7 @@ main {
   text-align: center;
   margin: auto;
 }
+
 .results-box {
   overflow: hidden;
   height: 115px;
@@ -77,11 +79,16 @@ a.background {
 a.background div.img {
   background-size: cover;
   height: 100%;
+  border: 1px solid var(--color-accent);
 }
 
 a.background div.img div.text {
   visibility: hidden;
   color: var(--color-bg);
+}
+
+a.background:hover div.img:hover {
+  border-color: var(--color-accent-dark);
 }
 
 a.background:hover div.img:hover div.text {
