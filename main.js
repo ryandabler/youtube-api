@@ -45,20 +45,19 @@ function processObject(element) {
 function renderAPIResultsToDOM(responseJSON, resultsObj) {
   const videoItems = responseJSON.items;
   
-  resultsObj.prevPageToken = responseJSON.prevPageToken;
-  resultsObj.nextPageToken = responseJSON.nextPageToken;
-  
   let processedItems = videoItems.map(elem => processObject(elem));
   
   // Display nav element if there are pages to navigate
-  if (resultsObj.prevPageToken !== undefined) {
+  if (responseJSON.prevPageToken !== undefined) {
     $("#js-nav-left").removeClass("invisible");
+    $("#js-left").attr("data-page-token", responseJSON.prevPageToken);
   } else {
     $("#js-nav-left").addClass("invisible");
   }
   
-  if (resultsObj.nextPageToken !== undefined) {
+  if (responseJSON.nextPageToken !== undefined) {
     $("#js-nav-right").removeClass("invisible");
+    $("#js-right").attr("data-page-token", responseJSON.nextPageToken);
   } else {
     $("#js-nav-right").addClass("invisible");
   }
@@ -71,20 +70,16 @@ function renderAPIResultsToDOM(responseJSON, resultsObj) {
   processedItems.forEach(elem => section.append(elem));
 }
 
-function queryAPI(resultsObj, callback, prevPage = null, nextPage = null) {
+function queryAPI(resultsObj, callback, pageToken = null) {
   const query = {
-    q:          `${resultsObj.searchPhrase}`,
+    q:          resultsObj.searchPhrase,
     part:       "snippet",
     maxResults: 8,
     key:        "AIzaSyDM_G1dTHAP1MQIp6jA9M8ehwpKRr9Oan4"
   };
   
-  if (prevPage !== null) {
-    query.pageToken = prevPage;
-  }
-  
-  if (nextPage !== null) {
-    query.pageToken = nextPage;
+  if (pageToken !== null) {
+    query.pageToken = pageToken;
   }
   
   $.getJSON(YOUTUBE_ENDPOINT, query, callback);
@@ -97,33 +92,25 @@ function getYouTubeResults(event, resultsObj) {
   queryAPI(resultsObj, function(response) { renderAPIResultsToDOM(response, resultsObj); } );
 }
 
-function getPreviousResultsPage(resultsObj) {
+function scrollResults(event, resultsObj) {
+  let $this = $(event.target);
+  let token = $this.attr("data-page-token");
+  
   queryAPI(resultsObj,
            function(response) { renderAPIResultsToDOM(response, resultsObj); },
-           resultsObj.prevPageToken,
-           null
+           token
           );
 }
 
-function getNextResultsPage(resultsObj) {
-    queryAPI(resultsObj,
-             function(response) { renderAPIResultsToDOM(response, resultsObj); },
-             null,
-             resultsObj.nextPageToken
-            );
-}
-
 function addEventListeners(resultsObj) {
-  $("#js-form") .submit( function(ev) { getYouTubeResults(ev, resultsObj);  } );
-  $("#js-left") .click(  function()   { getPreviousResultsPage(resultsObj); } );
-  $("#js-right").click(  function()   { getNextResultsPage(resultsObj);     } );
+  $("#js-form") .submit( function(ev) { getYouTubeResults(ev, resultsObj); } );
+  $("#js-left") .click(  function(ev) { scrollResults(ev, resultsObj);     } );
+  $("#js-right").click(  function(ev) { scrollResults(ev, resultsObj);     } );
 }
 
 function buildApp() {
   const results = {
-    searchPhrase : null,
-    nextPageToken: null,
-    prevPageToken: null
+    searchPhrase: null
   };
   
   addEventListeners(results);
