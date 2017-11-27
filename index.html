@@ -17,21 +17,21 @@
     <main role="main">
       <section>
         <form id="js-form" class="search-form flexbox" autocomplete="on" action="">
-            <input class="input flexitem js-input" name="search-text" type="text">
-            <input class="btn submit flexitem" type="submit" value="►">
+            <input class="input flexitem js-input" title="Enter you search phrase" name="search-text" type="text">
+            <input class="btn submit flexitem" title="Search" type="submit" value="►">
         </form>
       </section>
       
       <div class="results-container">
         <nav class="invisible" role="navigation" id="js-nav-left">
-          <button id="js-left" class="btn btn-round">‹</button>
+          <button id="js-left" title="Previous results" class="btn btn-round">‹</button>
         </nav>
         
         <section id="js-results" class="flexgrid js-results" aria-live="assertive">
         </section>
         
         <nav class="invisible" role="navigation" id="js-nav-right">
-          <button id="js-right" class="btn btn-round">›</button>
+          <button id="js-right" title="Next results" class="btn btn-round">›</button>
         </nav>
       </div>
     </main>

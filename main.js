@@ -50,7 +50,6 @@ function processObject(element) {
 
 function renderAPIResultsToDOM(responseJSON, resultsObj) {
   const videoItems = responseJSON.items;
-  
   let processedItems = videoItems.map(elem => processObject(elem));
   
   // Display nav element if there are pages to navigate
