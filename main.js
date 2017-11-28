@@ -48,15 +48,21 @@ function processObject(element) {
   return div_main;
 }
 
-function renderAPIResultsToDOM(responseJSON, resultsObj) {
+function renderAPIResultsToDOM(responseJSON, resultsObj, navigationBtn = null) {
   console.log(responseJSON);
   const videoItems   = responseJSON.items,
         totalResults = responseJSON.pageInfo.totalResults,
         resultsPerPg = responseJSON.pageInfo.resultsPerPage;
   let processedItems = videoItems.map(elem => processObject(elem)),
-      currResultSet  = parseInt($(".js-results-amount").attr("data-curr-results")),
-      nextResultSet  = currResultSet + 1,
-      endResultSet   = currResultSet + resultsPerPg;
+      currResultSet  = parseInt($(".js-results-amount").attr("data-curr-results"));
+  
+  if (navigationBtn === null || navigationBtn.attr("id") === "js-right") {
+    nextResultSet  = currResultSet + 1,
+    endResultSet   = currResultSet + resultsPerPg;
+  } else {
+    nextResultSet  = currResultSet - 2 * resultsPerPg + 1;
+    endResultSet   = currResultSet - resultsPerPg;
+  }
   
   // Show .results-container
   $(".js-results-container").prop("hidden", false);
@@ -113,10 +119,11 @@ function getYouTubeResults(event, resultsObj) {
 
 function scrollResults(event, resultsObj) {
   let $this = $(event.target);
+  console.log($this);
   let token = $this.attr("data-page-token");
   
   queryAPI(resultsObj,
-           function(response) { renderAPIResultsToDOM(response, resultsObj); },
+           function(response) { renderAPIResultsToDOM(response, resultsObj, $this); },
            token
           );
 }
