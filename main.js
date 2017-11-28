@@ -48,7 +48,7 @@ function processObject(element) {
   return div_main;
 }
 
-function renderAPIResultsToDOM(responseJSON, resultsObj, navigationBtn = null) {
+function renderAPIResultsToDOM(responseJSON, navigationBtn = null) {
   console.log(responseJSON);
   const videoItems   = responseJSON.items,
         totalResults = responseJSON.pageInfo.totalResults,
@@ -95,9 +95,9 @@ function renderAPIResultsToDOM(responseJSON, resultsObj, navigationBtn = null) {
   processedItems.forEach(elem => section.append(elem));
 }
 
-function queryAPI(resultsObj, callback, pageToken = null) {
+function queryAPI(callback, pageToken = null) {
   const query = {
-    q:          resultsObj.searchPhrase,
+    q:          $("#js-results").attr("data-search-phrase"),
     part:       "snippet",
     maxResults: 8,
     key:        "AIzaSyDM_G1dTHAP1MQIp6jA9M8ehwpKRr9Oan4"
@@ -110,36 +110,32 @@ function queryAPI(resultsObj, callback, pageToken = null) {
   $.getJSON(YOUTUBE_ENDPOINT, query, callback);
 }
 
-function getYouTubeResults(event, resultsObj) {
+function getYouTubeResults(event) {
   event.preventDefault();
   
-  resultsObj.searchPhrase = $(".js-input").val();
-  queryAPI(resultsObj, function(response) { renderAPIResultsToDOM(response, resultsObj); } );
+  let searchPhrase = $(".js-input").val();
+  $("#js-results").attr("data-search-phrase", searchPhrase);
+  queryAPI(function(response) { renderAPIResultsToDOM(response); } );
 }
 
-function scrollResults(event, resultsObj) {
+function scrollResults(event) {
   let $this = $(event.target);
   console.log($this);
   let token = $this.attr("data-page-token");
   
-  queryAPI(resultsObj,
-           function(response) { renderAPIResultsToDOM(response, resultsObj, $this); },
+  queryAPI(function(response) { renderAPIResultsToDOM(response, $this); },
            token
           );
 }
 
-function addEventListeners(resultsObj) {
-  $("#js-form") .submit( function(ev) { getYouTubeResults(ev, resultsObj); } );
-  $("#js-left") .click(  function(ev) { scrollResults(ev, resultsObj);     } );
-  $("#js-right").click(  function(ev) { scrollResults(ev, resultsObj);     } );
+function addEventListeners() {
+  $("#js-form") .submit( function(ev) { getYouTubeResults(ev); } );
+  $("#js-left") .click(  function(ev) { scrollResults(ev);     } );
+  $("#js-right").click(  function(ev) { scrollResults(ev);     } );
 }
 
 function buildApp() {
-  const results = {
-    searchPhrase: null
-  };
-  
-  addEventListeners(results);
+  addEventListeners();
 }
 
 $(buildApp);
