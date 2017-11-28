@@ -33,7 +33,7 @@ main > section:first-of-type {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .btn {
