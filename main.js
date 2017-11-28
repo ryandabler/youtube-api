@@ -49,7 +49,6 @@ function processObject(element) {
 }
 
 function renderAPIResultsToDOM(responseJSON, navigationBtn = null) {
-  console.log(responseJSON);
   const videoItems   = responseJSON.items,
         totalResults = responseJSON.pageInfo.totalResults,
         resultsPerPg = responseJSON.pageInfo.resultsPerPage;
@@ -115,12 +114,11 @@ function getYouTubeResults(event) {
   
   let searchPhrase = $(".js-input").val();
   $("#js-results").attr("data-search-phrase", searchPhrase);
-  queryAPI(function(response) { renderAPIResultsToDOM(response); } );
+  queryAPI(function(response) { renderAPIResultsToDOM(response); });
 }
 
 function scrollResults(event) {
   let $this = $(event.target);
-  console.log($this);
   let token = $this.attr("data-page-token");
   
   queryAPI(function(response) { renderAPIResultsToDOM(response, $this); },
@@ -129,9 +127,9 @@ function scrollResults(event) {
 }
 
 function addEventListeners() {
-  $("#js-form") .submit( function(ev) { getYouTubeResults(ev); } );
-  $("#js-left") .click(  function(ev) { scrollResults(ev);     } );
-  $("#js-right").click(  function(ev) { scrollResults(ev);     } );
+  $("#js-form") .submit(getYouTubeResults);
+  $("#js-left") .click( scrollResults);
+  $("#js-right").click( scrollResults);
 }
 
 function buildApp() {
