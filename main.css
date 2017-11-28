@@ -39,6 +39,7 @@ main > section:first-of-type {
 .btn {
   background-color: var(--color-accent);
   color: var(--color-bg);
+  outline: none;
 }
 
 .btn:hover, .btn:focus {
@@ -82,6 +83,7 @@ a.background {
   height: 100%;
   width: 100%;
   text-decoration: none;
+  outline: none;
 }
 
 a.background div.img {
