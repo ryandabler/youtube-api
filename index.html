@@ -22,15 +22,17 @@
         </form>
       </section>
       
-      <div class="results-container">
-        <nav class="invisible" role="navigation" id="js-nav-left">
+      <div class="results-container js-results-container" hidden>
+        <div class="results-amount js-results-amount" data-curr-results="0" tabindex="0"></div>
+        
+        <nav class="hidden" role="navigation" id="js-nav-left">
           <button id="js-left" title="Previous results" class="btn btn-round">‹</button>
         </nav>
         
-        <section id="js-results" class="flexgrid js-results" aria-live="assertive">
+        <section id="js-results" class="flexgrid js-results">
         </section>
         
-        <nav class="invisible" role="navigation" id="js-nav-right">
+        <nav class="hidden" role="navigation" id="js-nav-right">
           <button id="js-right" title="Next results" class="btn btn-round">›</button>
         </nav>
       </div>

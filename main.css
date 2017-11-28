@@ -36,10 +36,6 @@ main > section:first-of-type {
   display: none;
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .btn {
   background-color: var(--color-accent);
   color: var(--color-bg);
@@ -62,6 +58,18 @@ main > section:first-of-type {
 .results-container {
   text-align: center;
   margin: auto;
+}
+
+.results-amount {
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 15px 0;
+  margin: 0 auto 20px auto;
+  width: 60%;
+}
+
+.results-amount:focus {
+  outline: 1px solid var(--color-accent);
 }
 
 .results-box {

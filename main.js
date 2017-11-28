@@ -49,22 +49,36 @@ function processObject(element) {
 }
 
 function renderAPIResultsToDOM(responseJSON, resultsObj) {
-  const videoItems = responseJSON.items;
-  let processedItems = videoItems.map(elem => processObject(elem));
+  console.log(responseJSON);
+  const videoItems   = responseJSON.items,
+        totalResults = responseJSON.pageInfo.totalResults,
+        resultsPerPg = responseJSON.pageInfo.resultsPerPage;
+  let processedItems = videoItems.map(elem => processObject(elem)),
+      currResultSet  = parseInt($(".js-results-amount").attr("data-curr-results")),
+      nextResultSet  = currResultSet + 1,
+      endResultSet   = currResultSet + resultsPerPg;
+  
+  // Show .results-container
+  $(".js-results-container").prop("hidden", false);
+  
+  // Add results metadata to .results-amount
+  $(".js-results-amount").attr("data-curr-results", endResultSet);
+  $(".js-results-amount").text(`Results: ${nextResultSet}-${endResultSet} / ${totalResults}`);
+  $(".js-results-amount").focus();
   
   // Display nav element if there are pages to navigate
   if (responseJSON.prevPageToken !== undefined) {
-    $("#js-nav-left").removeClass("invisible");
+    $("#js-nav-left").removeClass("hidden");
     $("#js-left").attr("data-page-token", responseJSON.prevPageToken);
   } else {
-    $("#js-nav-left").addClass("invisible");
+    $("#js-nav-left").addClass("hidden");
   }
   
   if (responseJSON.nextPageToken !== undefined) {
-    $("#js-nav-right").removeClass("invisible");
+    $("#js-nav-right").removeClass("hidden");
     $("#js-right").attr("data-page-token", responseJSON.nextPageToken);
   } else {
-    $("#js-nav-right").addClass("invisible");
+    $("#js-nav-right").addClass("hidden");
   }
   
   // Clear old results
