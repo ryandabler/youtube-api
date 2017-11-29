@@ -10,18 +10,17 @@ function divHoverEffectIn(event) {
 }
 
 function divHoverEffectOut(event) {
-  let divImg  = $(event.currentTarget).find("div.img");
-  let $divImg = $(divImg[0]);
-  
-  let currentBgImg = $divImg.css("background-image");
-  let bgImg = currentBgImg.split(")), ")[1];
+  let divImg       = $(event.currentTarget).find("div.img"),
+      $divImg      = $(divImg[0]),
+      currentBgImg = $divImg.css("background-image"),
+      bgImg        = currentBgImg.split(")), ")[1];
   $divImg.css("background-image", bgImg);
 }
 
 function processObject(element) {
-  const videoId = element.id.videoId;
-  const title = element.snippet.title;
-  const thumbnailURL = element.snippet.thumbnails.medium.url;
+  const videoId      = element.id.videoId,
+        title        = element.snippet.title,
+        thumbnailURL = element.snippet.thumbnails.medium.url;
   
   let div_main = $("<div>");
   let div_sub  = $("<div>");
@@ -67,9 +66,9 @@ function renderAPIResultsToDOM(responseJSON, navigationBtn = null) {
   $(".js-results-container").prop("hidden", false);
   
   // Add results metadata to .results-amount
-  $(".js-results-amount").attr("data-curr-results", endResultSet);
-  $(".js-results-amount").text(`Results: ${nextResultSet}-${endResultSet} / ${totalResults}`);
-  $(".js-results-amount").focus();
+  $(".js-results-amount").attr("data-curr-results", endResultSet)
+                         .text(`Results: ${nextResultSet}-${endResultSet} / ${totalResults}`)
+                         .focus();
   
   // Display nav element if there are pages to navigate
   if (responseJSON.prevPageToken !== undefined) {
